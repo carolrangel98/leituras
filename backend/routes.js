@@ -31,3 +31,23 @@ app.put("/livros/:id", (req, res) => {
         () => res.sendStatus(200)
     );
 });
+
+// excluir livro
+app.delete("/livros/:id", (req, res) => {
+    db.run(
+        `DELETE FROM livros WHERE id=?`,
+        [req.params.id],
+        () => res.sendStatus(200)
+    );
+});
+
+// calcular média das notas
+app.get("/media", (req,res) => {
+    db.get(
+        `SELECT AVG(nota) as media FROM livros`,
+        [],
+        (err, row) => {
+            res.json(row);
+        }
+    );
+});
